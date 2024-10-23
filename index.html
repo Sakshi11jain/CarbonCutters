@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Emission Control</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <script>
+        function calculateCarbon() {
+    const transport = parseFloat(document.getElementById('transport').value);
+    const electricity = parseFloat(document.getElementById('electricity').value);
+    const gas = parseFloat(document.getElementById('gas').value);
+    const meat = parseFloat(document.getElementById('meat').value);
+
+    // Constants for carbon emission factors (tons of CO2 per unit of input)
+    const transportFactor = 0.21;  // kg CO2 per km
+    const electricityFactor = 0.92; // kg CO2 per kWh
+    const gasFactor = 2.204;       // kg CO2 per cubic meter of gas
+    const meatFactor = 27;         // kg CO2 per kg of meat per week
+
+    // Carbon footprint calculation
+    const transportCarbon = transport * transportFactor * 52 / 1000; // Convert to tons/year
+    const electricityCarbon = electricity * electricityFactor * 12 / 1000; // Convert to tons/year
+    const gasCarbon = gas * gasFactor * 12 / 1000; // Convert to tons/year
+    const meatCarbon = meat * meatFactor * 52 / 1000; // Convert to tons/year
+
+    const totalCarbon = transportCarbon + electricityCarbon + gasCarbon + meatCarbon;
+
+    // Display the result
+    document.getElementById('result').innerHTML = `
+        <p>Your estimated annual carbon footprint is <strong>${totalCarbon.toFixed(2)} tons</strong> of CO2.</p>
+        <p>${getSuggestions(totalCarbon)}</p>
+    `;
+}
+
+function getSuggestions(carbonFootprint) {
+    let suggestions = "Here are some suggestions to reduce your carbon footprint:<br>";
+    
+    if (carbonFootprint > 10) {
+        suggestions += "- Consider using public transport or carpooling.<br>";
+        suggestions += "- Reduce electricity usage by switching to energy-efficient appliances.<br>";
+        suggestions += "- Try to reduce meat consumption or switch to plant-based meals.<br>";
+        suggestions += "- Improve home insulation to reduce heating needs.<br>";
+    } else if (carbonFootprint > 5) {
+        suggestions += "- Walk or bike for shorter distances.<br>";
+        suggestions += "- Use renewable energy sources if possible.<br>";
+        suggestions += "- Reduce your meat consumption by half.<br>";
+    } else {
+        suggestions += "- Keep up the good work! You are already doing a great job.<br>";
+    }
+    
+    return suggestions;
+}
+    </script>
+    <header>
+        <h1>Carbon Cutters</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#solutions">Our Solutions</a></li>
+                <li><a href="#calculator">Carbon Calculator</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Reduce Your Carbon Footprint Today!</h2>
+        <p>Join us in creating a sustainable future.</p>
+        <button id="getStarted">Get Started</button>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <img src="about-image.jpg" alt="About Us" class="section-image">
+        <p>We are dedicated to reducing carbon emissions through innovative solutions and community engagement.</p>
+    </section>
+
+    <section id="solutions">
+        <h2>Our Solutions</h2>
+        <div class="solution">
+            <img src="offsetting.jpg" alt="Carbon Offsetting" class="solution-image">
+            <h3>Carbon Offsetting</h3>
+            <p>Invest in projects that reduce or capture carbon emissions.</p>
+        </div>
+        <div class="solution">
+            <img src="efficiency.jpg" alt="Energy Efficiency" class="solution-image">
+            <h3>Energy Efficiency</h3>
+            <p>Implement strategies to use energy more efficiently.</p>
+        </div>
+        <div class="solution">
+            <img src="renewable.jpg" alt="Renewable Energy" class="solution-image">
+            <h3>Renewable Energy</h3>
+            <p>Switch to renewable energy sources for a cleaner environment.</p>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <h1>Carbon Footprint Calculator</h1>
+        <form id="calculatorForm">
+            <label for="transport">Transport (km per week):</label>
+            <input type="number" id="transport" name="transport" required>
+
+            <label for="electricity">Electricity (kWh per month):</label>
+            <input type="number" id="electricity" name="electricity" required>
+
+            <label for="gas">Natural Gas (cubic meters per month):</label>
+            <input type="number" id="gas" name="gas" required>
+
+            <label for="meat">Meat Consumption (kg per week):</label>
+            <input type="number" id="meat" name="meat" required><br>
+
+            <button type="button" onclick="calculateCarbon()">Calculate Carbon Footprint</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </section>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: info@carboncontrol.org</p>
+        <p>Follow us on social media!</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
