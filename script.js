@@ -1,12 +1,6 @@
-
 // Get modal element and close button
 const loginModal = document.getElementById('loginModal');
-const closeButton = document.getElementsByClassName('close')[0];
-
-// When the user clicks the "Get Started" button, open the modal
-document.getElementById('getStarted').onclick = function() {
-    loginModal.style.display = 'block';
-};
+const closeButton = document.querySelector('#loginModal .close');
 
 // When the user clicks on the close button (X), close the modal
 closeButton.onclick = function() {
